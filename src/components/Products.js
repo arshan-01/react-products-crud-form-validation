@@ -71,7 +71,7 @@ function Products() {
 
     const onFinish = () => {
       if (EditID) {
-        setproducts (products.map((x) => {
+        setproducts = (products.map((x) => {
             if (x.id === EditID) {
                 return {
                     id: EditID,
@@ -87,11 +87,12 @@ function Products() {
         } ));
         setmodalVisible(false)
           form.resetFields()
-          console.log(products);
+          // console.log(products);
         }
       
         else {
           let uid = Math.random().toString(36).substr(2, 32);
+          
           let newproduct = {
             id :  uid ,
             title: title,
