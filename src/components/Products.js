@@ -11,7 +11,7 @@ function Products() {
   const [category, setcategory] = useState("");
   const [price, setprice] = useState("");
   const [ImageURL, setImageURL] = useState("");
-  const [EditID, setEditID] = useState("");
+  const [EditID, setEditID] = useState(null);
 
 // Update Handler
   const EditHandle = (item) =>{
@@ -70,29 +70,33 @@ function Products() {
     }
 
     const onFinish = () => {
-      if (EditID) {
-        setproducts = (products.map((x) => {
-            if (x.id === EditID) {
-                return {
-                    id: EditID,
-                    title: title,
-                    category: category,
-                    price: price,
-                  image: ImageURL,
-                };
-            } else {
-                return x;
-            }
-  
-        } ));
-        setmodalVisible(false)
-          form.resetFields()
-          // console.log(products);
+          let updatedProduct = {
+            id: EditID,
+            title: title,
+            category: category,
+            price: price,
+          image: ImageURL,
+          };
+
+       if (EditID) {
+        updatedProduct = products.map((item) => {
+        if (item.id === EditID) {
+            return updatedProduct
+        } else {
+            return item;
         }
+
+    } )
+      console.log(updatedProduct)
+        setproducts(updatedProduct);
+        message.success('Product added successfully!');
+        setmodalVisible(false);
+        form.resetFields()
+        setEditID(null)
+      }
       
         else {
           let uid = Math.random().toString(36).substr(2, 32);
-          
           let newproduct = {
             id :  uid ,
             title: title,
@@ -208,6 +212,7 @@ function Products() {
           </Form.Item>
           <Form.Item
             name="ImageURL"
+            type="text"
             // write ( hasFeedback ) for validate sign
             hasFeedback
             rules={[
