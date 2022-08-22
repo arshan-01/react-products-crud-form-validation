@@ -59,6 +59,7 @@ function Products() {
     const handleCancel = () => {
         setmodalVisible(false);
         form.resetFields();
+        setEditID(null);
     };
 
     const handleOk = () => {
@@ -109,10 +110,20 @@ function Products() {
         message.error("Something went wrong!");
     };
 
+
+    const titleChange = ()=>{
+        if (EditID) {
+            return  "Change Product Detail"
+        } else {
+            return  "Add Product Detail"
+        }
+     
+    }
+
     return (
         <>
             <Modal
-                title="Add a product"
+                title={titleChange()}
                 visible={modalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -120,8 +131,7 @@ function Products() {
                     <Button key="back" onClick={handleCancel}>
                         Cancel
                     </Button>,
-                    EditID
-                        ? [
+                    EditID ? [
                               <Button
                                   key="submit"
                                   type="primary"
